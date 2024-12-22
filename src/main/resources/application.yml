@@ -1,0 +1,58 @@
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    # 连接超时时间（毫秒）
+    connection-timeout: 10000
+    # 开启发送确认
+    publisher-confirm-type: correlated
+    # 开启发送失败退回
+    publisher-returns: true
+    template:
+      # 开启强制信息发送
+      mandatory: true
+      # 重试策略
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-attempts: 3
+        max-interval: 10000
+        multiplier: 1.0
+    # 心跳超时时间（秒）
+    requested-heartbeat: 60
+    # 缓存模式
+    cache:
+      channel:
+        size: 25
+        checkout-timeout: 0
+      connection:
+        mode: channel
+    # 消费端配置
+    listener:
+      simple:
+        # 手动确认
+        acknowledge-mode: manual
+        # 每个队列消费者数量
+        concurrency: 1
+        # 每个队列最大消费者数量
+        max-concurrency: 1
+        # 是否支持重试
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-attempts: 3
+          max-interval: 10000
+          multiplier: 1.0
+        default-requeue-rejected: true
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+  # 允许循环依赖
+  main:
+    allow-circular-references: true
+
+server:
+  port: 8081
