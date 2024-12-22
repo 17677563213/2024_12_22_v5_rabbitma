@@ -19,7 +19,7 @@ public class MessageConsumer {
     private IdempotencyUtil idempotencyUtil;
 
     /**
-     * 消费普通队列消息
+     * 消费普通队列消息xx
      */
     @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
     public void handleMessage(Message message, Channel channel) throws IOException {
